@@ -1,17 +1,56 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠</text></svg>" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="QuizAI Platform — Create and take AI-evaluated quizzes with instant results and smart grading for MCQ and short-answer questions." />
-    <title>QuizAI Platform — AI-Powered Quiz Dashboard</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠</text></svg>" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description"
+    content="QuizAI Platform — Create and take AI-evaluated quizzes with instant results and smart grading for MCQ and short-answer questions." />
+  <title>QuizAI Platform — AI-Powered Quiz Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+</head>
+
+<body>
+  <div id="root"></div>
+  <script type="module" src="/src/main.jsx"></script>
+  <script type=" module">
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+  // ✅ YOUR CONFIG (you already have it — just paste)
+  const firebaseConfig = {
+    apiKey: "AIzaSyBIwlN43YSN2yuJtJdJsMqacubkiojesDo",
+    authDomain: "quiz-8a1c1.firebaseapp.com",
+    projectId: "quiz-8a1c1",
+    storageBucket: "quiz-8a1c1.firebasestorage.app",
+    messagingSenderId: "140003858383",
+    appId: "1:140003858383:web:9f21383bb637ba9793a4ba",
+    measurementId: "G-QBH36M8NX8"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  async function getData() {
+    const querySnapshot = await getDocs(collection(db, "students"));
+    const list = document.getElementById("list");
+
+    querySnapshot.forEach((doc) => {
+      const data = doc.data();
+      const li = document.createElement("li");
+      li.textContent = data.name + " - " + data.marks;
+      list.appendChild(li);
+    });
+  }
+
+  getData();
+</script>
+
+</body>
+
 </html>
